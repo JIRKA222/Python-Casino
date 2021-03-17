@@ -41,5 +41,8 @@ def print_loading_bar(length, delay_between_steps):
         i += 1
     print()
 
-
-
+def librar_info():
+    print(Fore.MAGENTA + "You need to install colorama (https://pypi.org/project/colorama/)", end = "")
+    input()
+    format_reset()
+    clear()
