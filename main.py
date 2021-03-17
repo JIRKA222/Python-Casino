@@ -3,6 +3,7 @@
 import os
 import sys
 
+import pip
 import random as rnd
 import time
 
@@ -11,10 +12,13 @@ import console_format
 from colorama import Fore, Back, Style
 from colorama import init
 
+if not 'colorama' in sys.modules.keys():
+    pip.main(['install', 'colorama'])
+
 # __________Global Vars__________
 player_name = "Player"
 player_money = 500
-casino_ascii_art = " _    _      _                            _          _   _           \n| |  | |    | |                          | |        | | | |          \n| |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___  \n| |/\| |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | __| '_ \ / _ \ \n\  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/ \n \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \__|_| |_|\___| \n                                                                     \n                                                                     \n _     _   _ _____  _   ____   __  _____ _____                       \n| |   | | | /  __ \| | / /\ \ / / |____ |  _  |                      \n| |   | | | | /  \/| |/ /  \ V /      / /\ V /                       \n| |   | | | | |    |    \   \ /       \ \/ _ \                       \n| |___| |_| | \__/\| |\  \  | |   .___/ / |_| |                      \n\_____/\___/ \____/\_| \_/  \_/   \____/\_____/                      "
+casino_ascii_art = " _    _      _                            _          _   _           \n| |  | |    | |                          | |        | | | |          \n| |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___  \n| |/\| |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | __| '_ \ / _ \ \n\  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/ \n \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \__|_| |_|\___| \n                                                                                                                                          \n _     _   _ _____  _   ____   __  _____ _____                       \n| |   | | | /  __ \| | / /\ \ / / |____ |  _  |                      \n| |   | | | | /  \/| |/ /  \ V /      / /\ V /                       \n| |   | | | | |    |    \   \ /       \ \/ _ \                       \n| |___| |_| | \__/\| |\  \  | |   .___/ / |_| |                      \n\_____/\___/ \____/\_| \_/  \_/   \____/\_____/                      "
 russian_names = ["Sofia", "Anastasia", "Victoria", "Ksenia", "Arina", "Elizaveta", "Adelina", "Irina", "Yelena", "Polina", "Daria", "Natalia", "Svetlana", "Vera", "Nadezhda", "Galina", "Lyubov", "Aleksandra", "Maria", "Anna", "Angelina", "Marina", "Yekaterina", "Ludmila",
                  "Tatiana", "Artyom", "Aleksandr", "Roman", "Yevgeny", "Ivan", "Maksim", "Denis", "Alexey", "Dmitry", "Danyl", "Sergey", "Nikolai", "Konstantin", "Nikita", "Mikhail", "Boris", "Victor", "Gennady", "Vyacheslav", "Vladimir", "Andrey", "Anatoly", "Ilya", "Kirill", "Oleg"]
 entered_name = False
@@ -28,7 +32,6 @@ def main():
 
     console_format.clear()
     console_format.format_setup()
-    print("(You need colorama (https://pypi.org/project/colorama/))")
     intro()
     # debug_mode_menu()
     if entered_name == False:
@@ -37,8 +40,10 @@ def main():
 
 
 def intro():
+    #console_format.librar_info()
+    print(Fore.YELLOW, end = "")
     print(casino_ascii_art)
-    print()
+    print(Fore.WHITE)
     print_money()
 
 
