@@ -36,6 +36,7 @@ def main():
     # debug_mode_menu()
     if entered_name == False:
         name_menu()
+    print_money()
     pick_game()
 
 
@@ -44,7 +45,6 @@ def intro():
     print(Fore.YELLOW, end = "")
     print(casino_ascii_art)
     print(Fore.WHITE)
-    print_money()
 
 
 def pick_game():
@@ -95,12 +95,13 @@ def input_number(input_message, min_value):
             input_number_returned = int(input(input_message))
         except:
             console_format.clear()
-            print("Please enter a number.")
+            print("Please enter an integer.")
         else:
             if input_number_returned >= min_value:
                 return input_number_returned
             else:
-                print(f"Please enter a number greater than {min_value - 1}.")
+                console_format.clear()
+                print(f"Please enter an integer greater than {min_value - 1}.")
 
 
 def print_loading_bar(length, delay_between_steps):
@@ -121,7 +122,7 @@ def print_money():
 def rr_win_screen(win_list, win_status):
     console_format.clear()
     print(Fore.GREEN +
-          f"As you stand next to a pile of {len(win_list)} bodies, you begin wonder: What am I gonna do with this money?")
+          f"As you stand next to a pile of {len(win_list) - 1} bodies, you begin wonder: What am I gonna do with this money?")
     console_format.format_reset()
     print_money()
     rr_print_competetor_status(win_list, win_status)
@@ -183,7 +184,7 @@ def rr_intro():
     if entered_char == "A" or entered_char == "a":
         rr_main()
     else:
-        return_menu()
+        main()
 
 
 def rr_main():
@@ -208,8 +209,9 @@ def rr_main():
     current_competetors.append(player_name)
     current_status_of_competetors.append(True)
     print(f"You can win {prize_pool} moneys.")
-    print(
-        f"The odds of you surviving are not {round((1 / len(current_competetors) * 100), 2)}%.")
+    print(f"The odds of you surviving could be {round((1 / len(current_competetors) * 100), 2)}%.")
+    console_format.format_reset()
+    print(".")
     input()
 
     while True:
