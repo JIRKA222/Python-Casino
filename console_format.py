@@ -1,11 +1,15 @@
+from colorama import Fore, Back, Style
 import time
 
 from colorama import init
 init()
-from colorama import Fore, Back, Style
 
 
 # __________Console Formating__________
+
+casino_ascii_art = "  _                _             ____ ______ \n | |              | |           |___ \____  |\n | |    _   _  ___| | ___   _     __) |  / / \n | |   | | | |/ __| |/ / | | |   |__ <  / /  \n | |___| |_| | (__|   <| |_| |   ___) |/ /   \n |______\__,_|\___|_|\_\\__, |  |____//_/    \n                         __/ |               \n                        |___/                "
+russian_names = ["Sofia", "Anastasia", "Victoria", "Ksenia", "Arina", "Elizaveta", "Adelina", "Irina", "Yelena", "Polina", "Daria", "Natalia", "Svetlana", "Vera", "Nadezhda", "Galina", "Lyubov", "Aleksandra", "Maria", "Anna", "Angelina", "Marina", "Yekaterina", "Ludmila",
+                 "Tatiana", "Artyom", "Aleksandr", "Roman", "Yevgeny", "Ivan", "Maksim", "Denis", "Alexey", "Dmitry", "Danyl", "Sergey", "Nikolai", "Konstantin", "Nikita", "Mikhail", "Boris", "Victor", "Gennady", "Vyacheslav", "Vladimir", "Andrey", "Anatoly", "Ilya", "Kirill", "Oleg"]
 
 def clear():
     print('\x1b[2J', end="")
@@ -70,7 +74,7 @@ def input_number(input_message, min_value):
             if input_number_returned >= min_value:
                 return input_number_returned
             else:
-                
+
                 clear()
                 print(f"Please enter an integer greater than {min_value - 1}.")
 
