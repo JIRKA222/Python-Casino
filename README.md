@@ -1,2 +1,2 @@
 # Python-Casino
-Open main.py to start the program
+Open main.py to start the program.
