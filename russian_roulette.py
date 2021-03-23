@@ -62,7 +62,9 @@ def debug(magazine_debug, current_competetors_debug, current_status_of_competeto
 
 
 def print_intro():
-    print("You are playing russian roulette.")
+    console_format.clear()
+
+    print("You are playing russian roulette™.")
     print("Each round a loaded gun with one bullet is passed among the players and fired.")
     print("You always bet all your belongings.")
     print("The survivor inherits all property of the deceased.")
@@ -75,7 +77,7 @@ def print_intro():
 def rr_main(player_name, player_money):
     print_intro()
     if console_format.is_proceed_menu() == False:
-        return player_money
+        return 0
 
     current_competetors = []
     current_status_of_competetors = []
@@ -83,7 +85,7 @@ def rr_main(player_name, player_money):
     you_won = False
 
     current_num_competetors = console_format.input_number(
-        "How many people do you wish to compete with? (5 is reccomended): ", 1)
+        "How many people do you wish to compete with? (5 is reccomended): ", 1, 40)
     current_max_num_competetors = current_num_competetors
 
     prize_pool = 0
