@@ -10,7 +10,7 @@ import time
 
 import console_format
 import russian_roulette
-
+import coin_flip
 
 from colorama import init
 init()
@@ -39,15 +39,14 @@ def main():
     console_format.clear()
     console_format.format_setup()
     intro()
-    # debug_mode_menu()
     if entered_name == False:
         name_menu()
+        intro()
     console_format.print_money(player_money)
     pick_game()
 
 
 def intro():
-    # console_format.library_info()
     print(Fore.YELLOW, end="")
     print(console_format.casino_ascii_art)
     print(Fore.WHITE)
@@ -57,16 +56,18 @@ def pick_game():
     global player_money
 
     print("Select a game:")
-    print("\t[A]: Russian roulette")
-    print("\t[B]: Na to neklikej")
+    print("\t[A]: Russian roulette™")
+    print("\t[B]: Coin flip advanced™ (W.I.P.)")
     print("\t[ANY]: Exit")
     game_choice_input = input()
 
     if game_choice_input == "A" or game_choice_input == "a":
-        console_format.clear()
         player_money += russian_roulette.rr_main(player_name, player_money)
+    elif game_choice_input == "B" or game_choice_input == "b":
+        player_money += coin_flip.cc_main(player_name, player_money)
     else:
         quit()
+    console_format.clear()
 
 
 def debug_mode_menu():
