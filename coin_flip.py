@@ -13,7 +13,7 @@ def intro():
     print("\t[ANY]: No")
 
 def betting_info():
-    print("The amount of monis you win is determined by the amount of coin flips predicted:")
+    print("The amount of monis you get back determined by the amount of coin flips correctly predicted:")
     print("\t1  Flips: 2x    monis.")
     print("\t2  Flips: 4x    monis.")
     print("\t3  Flips: 8x    monis.")
@@ -24,6 +24,9 @@ def betting_info():
     print("\t8  Flips: 256x  monis.")
     print("\t9  Flips: 512x  monis.")
     print("\t10 Flips: 1024x monis.")
+
+    input()
+    console_format.clear()
 
 
 def win_screen(amount):
@@ -61,6 +64,7 @@ def cc_main(player_name, player_money):
     you_won = True
     betted_money = 0
     num_of_turns = 0
+    prize_pool = 0
     prediction = []
     dice_roll = []
 
@@ -68,6 +72,8 @@ def cc_main(player_name, player_money):
     if console_format.is_proceed_menu() == False:
         return 0
     console_format.clear()
+
+    betting_info()
 
     betted_money = console_format.input_number(
         f"How much many monis do you want to bet? (You have {player_money} monis): ", 5, player_money)
@@ -77,6 +83,13 @@ def cc_main(player_name, player_money):
     prediction = int_into_bool_array(input(
         "Enter ur prediction. 1 for heads and 0 for tails. (example: 01001): "))
     num_of_turns = len(prediction)
+    prize_pool = betted_money * pow(2, num_of_turns)
+
+    console_format.clear()
+
+    print(f"You can win {prize_pool} monis.")
+    input()
+
     dice_roll = get_dice_roll(num_of_turns)
 
     for i in range(0, num_of_turns):
@@ -117,10 +130,10 @@ def cc_main(player_name, player_money):
             break
 
     if you_won == True:
-        win_screen()
+        win_screen(prize_pool)
         input()
-        return betted_money
+        return prize_pool
     else:
-        lose_screen()
+        lose_screen(betted_money)
         input()
         return -betted_money
