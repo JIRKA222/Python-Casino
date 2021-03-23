@@ -1,5 +1,5 @@
 #!/usr/local/bin/python
-# latin-1a
+#latin-1a
 from colorama import Fore, Back, Style
 import os
 import sys
