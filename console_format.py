@@ -11,6 +11,7 @@ casino_ascii_art = "  _                _             ____ ______ \n | |         
 russian_names = ["Sofia", "Anastasia", "Victoria", "Ksenia", "Arina", "Elizaveta", "Adelina", "Irina", "Yelena", "Polina", "Daria", "Natalia", "Svetlana", "Vera", "Nadezhda", "Galina", "Lyubov", "Aleksandra", "Maria", "Anna", "Angelina", "Marina", "Yekaterina", "Ludmila",
                  "Tatiana", "Artyom", "Aleksandr", "Roman", "Yevgeny", "Ivan", "Maksim", "Denis", "Alexey", "Dmitry", "Danyl", "Sergey", "Nikolai", "Konstantin", "Nikita", "Mikhail", "Boris", "Victor", "Gennady", "Vyacheslav", "Vladimir", "Andrey", "Anatoly", "Ilya", "Kirill", "Oleg"]
 
+
 def clear():
     print('\x1b[2J', end="")
 
@@ -24,7 +25,7 @@ def format_reset():
     print(Style.BRIGHT, end="")
 
 
-def input_number(input_message, min_value):
+def input_number(input_message, min_value, max_value):
     input_number_returned = 0
 
     while True:
@@ -34,10 +35,26 @@ def input_number(input_message, min_value):
             clear()
             print("Please enter a number.")
         else:
-            if input_number_returned >= min_value:
+            if input_number_returned >= min_value and input_number_returned <= max_value:
                 return input_number_returned
             else:
-                print(f"Please enter a number greater than {min_value - 1}.")
+                clear()
+                print(
+                    f"Please enter a number greater than {min_value - 1} and smaller than {max_value + 1}.")
+
+
+def input_binary(input_message):
+
+    input_number_returned = 0
+
+    while True:
+        try:
+            input_number_returned = int(input(input_message))
+        except:
+            clear()
+            print("Please enter a number.")
+        else:
+            return input_number_returned
 
 
 def print_loading_bar(length, delay_between_steps):
@@ -59,24 +76,6 @@ def library_info():
 
 def print_money(amount):
     print(f"You have {amount} monis.")
-
-
-def input_number(input_message, min_value):
-    input_number_returned = 0
-
-    while True:
-        try:
-            input_number_returned = int(input(input_message))
-        except:
-            clear()
-            print("Please enter an integer.")
-        else:
-            if input_number_returned >= min_value:
-                return input_number_returned
-            else:
-
-                clear()
-                print(f"Please enter an integer greater than {min_value - 1}.")
 
 
 def is_proceed_menu():
