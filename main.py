@@ -37,7 +37,7 @@ def main():
     global entered_name
 
     console_format.clear()
-    console_format.format_setup()
+    console_format.format_reset()
     intro()
     if entered_name == False:
         name_menu()
