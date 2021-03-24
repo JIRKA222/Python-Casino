@@ -16,10 +16,6 @@ def clear():
     print('\x1b[2J', end="")
 
 
-def format_setup():
-    print(Style.BRIGHT, end="")
-
-
 def format_reset():
     print(Style.RESET_ALL, end="")
     print(Style.BRIGHT, end="")
@@ -44,17 +40,22 @@ def input_number(input_message, min_value, max_value):
 
 
 def input_binary(input_message):
+    input_binary = ""
+    is_aok = False
 
-    input_number_returned = 0
+    while is_aok == False:
+        is_aok = True
+        input_binary = input(input_message)
+        for i in input_binary:
+            if i != "0" and i != "1":
+                clear()
+                print("Enter a series of 0s and 1s.")
+                input()
+                is_aok = False
+                break
+        clear()
 
-    while True:
-        try:
-            input_number_returned = int(input(input_message))
-        except:
-            clear()
-            print("Please enter a number.")
-        else:
-            return input_number_returned
+    return input_binary
 
 
 def print_loading_bar(length, delay_between_steps):
