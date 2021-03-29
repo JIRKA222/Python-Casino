@@ -30,6 +30,8 @@ def input_number(input_message, min_value, max_value):
         except:
             clear()
             print("Please enter a number.")
+            input()
+            clear()
         else:
             if input_number_returned >= min_value and input_number_returned <= max_value:
                 return input_number_returned
@@ -37,6 +39,8 @@ def input_number(input_message, min_value, max_value):
                 clear()
                 print(
                     f"Please enter a number greater than {min_value - 1} and smaller than {max_value + 1}.")
+                input()
+                clear()
 
 
 def input_binary(input_message):
@@ -46,13 +50,20 @@ def input_binary(input_message):
     while is_aok == False:
         is_aok = True
         input_binary = input(input_message)
-        for i in input_binary:
-            if i != "0" and i != "1":
-                clear()
-                print("Enter a series of 0s and 1s.")
-                input()
-                is_aok = False
-                break
+
+        clear()
+        if input_binary == "":
+            print("Enter a series of 0s and 1s.")
+            input()
+            is_aok = False
+        else:
+            for i in input_binary:
+                if i != "0" and i != "1":
+                    
+                    print("Enter a series of 0s and 1s.")
+                    input()
+                    is_aok = False
+                    break
         clear()
 
     return input_binary
