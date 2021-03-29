@@ -8,12 +8,13 @@ init()
 def intro():
     console_format.clear()
 
-    print("You are play coin flip advanced™. Yay")
+    print("Coin flip advanced™ is simple. You bet guess whether the coin lands on heads or tails and that win a lot of monis.")
+    print("Do you want to get rich?")
     print("\t[A]:   Yes")
     print("\t[ANY]: No")
 
 def betting_info():
-    print("The amount of monis you get back determined by the number of coin flips correctly predicted:")
+    print("The amount of monis you get back is determined by the number of coin flips correctly predicted:")
     print("\t1  Flips: 2x    monis.")
     print("\t2  Flips: 4x    monis.")
     print("\t3  Flips: 8x    monis.")
