@@ -30,6 +30,7 @@ def lose_screen(lost_list, lost_status, money_amount):
 def print_competetor_status(competetor_list, competetor_status):
     i = 0
     print("Status of competitors: ")
+
     while i < len(competetor_list):
         if len(competetor_list[i]) >= 8:
             print(competetor_list[i], end="\t")
