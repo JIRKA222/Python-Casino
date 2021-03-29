@@ -1,5 +1,5 @@
 #!/usr/local/bin/python
-#latin-1a
+# latin-1a
 from colorama import Fore, Back, Style
 import os
 import sys
@@ -24,7 +24,7 @@ if not 'colorama' in sys.modules.keys():
     pip.main(['install', 'colorama'])
 
 
-# __________Global Vars__________
+# __________Not So Global Vars__________
 
 player_name = "Player"
 player_money = 500
@@ -33,17 +33,17 @@ entered_name = False
 
 # __________Main Game Parts Things__________
 
-def main():
-    global entered_name
-
+def main(player_money, player_name, entered_name):
     console_format.clear()
     console_format.format_reset()
     intro()
     if entered_name == False:
-        name_menu()
+        player_name, entered_name = name_menu(player_name, entered_name)
         intro()
     console_format.print_money(player_money)
-    pick_game()
+    player_money += pick_game(player_name, player_money)
+
+    return player_money, player_name, entered_name
 
 
 def intro():
@@ -52,42 +52,33 @@ def intro():
     print(Fore.WHITE)
 
 
-def pick_game():
-    global player_money
+def pick_game(player_name, player_money):
+    returned_money = 0
 
     print("Select a game:")
     print("\t[A]: Russian roulette™")
-    print("\t[B]: Coin flip advanced™ (W.I.P.)")
+    print("\t[B]: Coin flip advanced™")
     print("\t[ANY]: Exit")
     game_choice_input = input()
 
     if game_choice_input == "A" or game_choice_input == "a":
-        player_money += russian_roulette.rr_main(player_name, player_money)
+        returned_money = russian_roulette.rr_main(player_name, player_money)
     elif game_choice_input == "B" or game_choice_input == "b":
-        player_money += coin_flip.cc_main(player_name, player_money)
+        returned_money += coin_flip.cc_main(player_name, player_money)
     else:
         quit()
     console_format.clear()
+    return returned_money
 
 
-def debug_mode_menu():
-    print("Do you wish to enable debug mode?")
-    print("\t[A]: Yes")
-    print("\t[B]: No")
-    entered_char = input()
-    if entered_char == "A" or entered_char == "a":
-        debug_mode = True
-    console_format.clear()
-
-
-def name_menu():
-    global player_name
-    global entered_name
-
+def name_menu(player_name, entered_name):
     player_name = input("What's your name: ")
     entered_name = True
     console_format.clear()
 
+    return player_name, entered_name
+
 
 while True:
-    main()
+    player_money, player_name, entered_name = main(
+        player_money, player_name, entered_name)
