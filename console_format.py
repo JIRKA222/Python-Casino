@@ -1,88 +1,84 @@
+#!/usr/local/bin/python
+# latin-1a
 from colorama import Fore, Back, Style
+import os
+import sys
+
+import pip
+import random as rnd
 import time
+
+import console_format
+import russian_roulette
+import coin_flip
 
 from colorama import init
 init()
 
-
-# __________Console Formating__________
-
-casino_ascii_art = "  _                _             ____ ______ \n | |              | |           |___ \____  |\n | |    _   _  ___| | ___   _     __) |  / / \n | |   | | | |/ __| |/ / | | |   |__ <  / /  \n | |___| |_| | (__|   <| |_| |   ___) |/ /   \n |______\__,_|\___|_|\_\\__, |  |____//_/    \n                         __/ |               \n                        |___/                "
-russian_names = ["Sofia", "Anastasia", "Victoria", "Ksenia", "Arina", "Elizaveta", "Adelina", "Irina", "Yelena", "Polina", "Daria", "Natalia", "Svetlana", "Vera", "Nadezhda", "Galina", "Lyubov", "Aleksandra", "Maria", "Anna", "Angelina", "Marina", "Yekaterina", "Ludmila",
-                 "Tatiana", "Artyom", "Aleksandr", "Roman", "Yevgeny", "Ivan", "Maksim", "Denis", "Alexey", "Dmitry", "Danyl", "Sergey", "Nikolai", "Konstantin", "Nikita", "Mikhail", "Boris", "Victor", "Gennady", "Vyacheslav", "Vladimir", "Andrey", "Anatoly", "Ilya", "Kirill", "Oleg"]
-
-
-def clear():
-    print('\x1b[2J', end="")
-
-
-def format_reset():
-    print(Style.RESET_ALL, end="")
-    print(Style.BRIGHT, end="")
-
-
-def input_number(input_message, min_value, max_value):
-    input_number_returned = 0
-
-    while True:
-        try:
-            input_number_returned = int(input(input_message))
-        except:
-            clear()
-            print("Please enter a number.")
-        else:
-            if input_number_returned >= min_value and input_number_returned <= max_value:
-                return input_number_returned
-            else:
-                clear()
-                print(
-                    f"Please enter a number greater than {min_value - 1} and smaller than {max_value + 1}.")
-
-
-def input_binary(input_message):
-    input_binary = ""
-    is_aok = False
-
-    while is_aok == False:
-        is_aok = True
-        input_binary = input(input_message)
-        for i in input_binary:
-            if i != "0" and i != "1":
-                clear()
-                print("Enter a series of 0s and 1s.")
-                input()
-                is_aok = False
-                break
-        clear()
-
-    return input_binary
-
-
-def print_loading_bar(length, delay_between_steps):
-    i = 0
-    while i <= length:
-        print("#", end="")
-        time.sleep(delay_between_steps)
-        i += 1
-    print()
-
-
-def library_info():
-    print(Fore.MAGENTA +
-          "You need to install colorama (https://pypi.org/project/colorama/)", end="")
+if not 'pip' in sys.modules.keys():
+    print("You need to install pip (https://pypi.org/project/pip/)")
     input()
-    format_reset()
-    clear()
+    quit()
+
+if not 'colorama' in sys.modules.keys():
+    pip.main(['install', 'colorama'])
 
 
-def print_money(amount):
-    print(f"You have {amount} monis.")
+# __________Not So Global Vars__________
+
+player_name = "Player"
+player_money = 500
+entered_name = False
 
 
-def is_proceed_menu():
-    entered_char = input()
-    clear()
-    if entered_char == "A" or entered_char == "a":
-        return True
+# __________Main Game Parts Things__________
+
+def main(player_money, player_name, entered_name):
+    console_format.clear()
+    console_format.format_reset()
+    intro()
+    if entered_name == False:
+        player_name, entered_name = name_menu(player_name, entered_name)
+        intro()
+    console_format.print_money(player_money)
+    player_money += pick_game(player_name, player_money)
+
+    return player_money, player_name, entered_name
+
+
+def intro():
+    print(Fore.YELLOW, end="")
+    print(console_format.casino_ascii_art)
+    print(Fore.WHITE)
+
+
+def pick_game(player_name, player_money):
+    returned_money = 0
+
+    print("Select a game:")
+    print("\t[A]: Russian roulette™")
+    print("\t[B]: Coin flip advanced™ (W.I.P.)")
+    print("\t[ANY]: Exit")
+    game_choice_input = input()
+
+    if game_choice_input == "A" or game_choice_input == "a":
+        returned_money = russian_roulette.rr_main(player_name, player_money)
+    elif game_choice_input == "B" or game_choice_input == "b":
+        returned_money += coin_flip.cc_main(player_name, player_money)
     else:
-        return False
+        quit()
+    console_format.clear()
+    return returned_money
+
+
+def name_menu(player_name, entered_name):
+    player_name = input("What's your name: ")
+    entered_name = True
+    console_format.clear()
+
+    return player_name, entered_name
+
+
+while True:
+    player_money, player_name, entered_name = main(
+        player_money, player_name, entered_name)
