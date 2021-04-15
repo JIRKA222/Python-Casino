@@ -97,3 +97,10 @@ def is_proceed_menu():
         return True
     else:
         return False
+
+def want_to_continue(game_name):
+    print(f"Do you want to continue playing {game_name}?")
+    print("\t[A] Yes")
+    print("\t[ANY] No")
+
+    return is_proceed_menu()
