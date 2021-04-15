@@ -13,6 +13,7 @@ def intro():
     print("\t[A]:   Yes")
     print("\t[ANY]: No")
 
+
 def betting_info():
     print("The amount of monis you get back is determined by the number of coin flips correctly predicted:")
     print("\t1  Flips: 2x    monis.")
@@ -62,7 +63,11 @@ def get_dice_roll(number_of_throws):
 
 
 def cc_main(player_name, player_money):
-    you_won = True
+    console_format.clear()
+    
+    continue_game = True
+
+    returned_money = 0
     betted_money = 0
     num_of_turns = 0
     prize_pool = 0
@@ -76,65 +81,73 @@ def cc_main(player_name, player_money):
 
     betting_info()
 
-    betted_money = console_format.input_number(
-        f"How much many monis do you want to bet? (You have {player_money} monis): ", 5, player_money)
+    while continue_game == True:
+        you_won = True
 
-    console_format.clear()
+        betted_money = console_format.input_number(
+            f"How much many monis do you want to bet? (You have {player_money + returned_money} monis): ", 5, player_money + returned_money)
 
-    prediction = int_into_bool_array(console_format.input_binary(
-        "Enter your prediction. 1 for heads and 0 for tails. (example: 01001): "))
-    num_of_turns = len(prediction)
-    prize_pool = betted_money * pow(2, num_of_turns)
-
-    console_format.clear()
-
-    print(f"You can win {prize_pool} monis.")
-    input()
-
-    dice_roll = get_dice_roll(num_of_turns)
-
-    for i in range(0, num_of_turns):
         console_format.clear()
 
-        if prediction[i] == True:
-            print("You prediction: heads. ", end="")
-        else:
-            print("Your prediction: tails ", end="")
+        prediction = int_into_bool_array(console_format.input_binary(
+            "Enter your prediction. 1 for heads and 0 for tails. (example: 01001): "))
+        num_of_turns = len(prediction)
+        prize_pool = betted_money * pow(2, num_of_turns)
 
+        console_format.clear()
+
+        print(f"You can win {prize_pool} monis.")
         input()
 
-        console_format.print_loading_bar(10, 0.1)
-        if prediction[i] == dice_roll[i]:
-            print(Fore.GREEN, end="")
-            if dice_roll[i] == True:
-                print("It's heads. ")
+        dice_roll = get_dice_roll(num_of_turns)
+
+        for i in range(0, num_of_turns):
+            console_format.clear()
+
+            if prediction[i] == True:
+                print("You prediction: heads. ", end="")
             else:
-                print("It's tails. ")
+                print("Your prediction: tails ", end="")
 
             input()
 
-            console_format.clear()
-            console_format.format_reset()
-        else:
-            print(Fore.RED, end="")
-            if dice_roll[i] == True:
-                print("It's heads. ")
+            console_format.print_loading_bar(10, 0.1)
+            if prediction[i] == dice_roll[i]:
+                print(Fore.GREEN, end="")
+                if dice_roll[i] == True:
+                    print("It's heads. ")
+                else:
+                    print("It's tails. ")
+
+                input()
+
+                console_format.clear()
+                console_format.format_reset()
             else:
-                print("It's tails. ")
-            
+                print(Fore.RED, end="")
+                if dice_roll[i] == True:
+                    print("It's heads. ")
+                else:
+                    print("It's tails. ")
+
+                input()
+
+                console_format.clear()
+                console_format.format_reset()
+
+                you_won = False
+                break
+
+        if you_won == True:
+            win_screen(prize_pool)
             input()
+            returned_money += prize_pool
+        else:
+            lose_screen(betted_money)
+            input()
+            returned_money += -betted_money
 
-            console_format.clear()
-            console_format.format_reset()
+        console_format.clear()
+        continue_game = console_format.want_to_continue("coin flip advanced™")
 
-            you_won = False
-            break
-
-    if you_won == True:
-        win_screen(prize_pool)
-        input()
-        return prize_pool
-    else:
-        lose_screen(betted_money)
-        input()
-        return -betted_money
+    return returned_money
