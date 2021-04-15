@@ -41,6 +41,11 @@ def main(player_money, player_name, entered_name):
         player_name, entered_name = name_menu(player_name, entered_name)
         intro()
     console_format.print_money(player_money)
+
+    if player_money <= 0:
+        print("You have been kicked out the casino, because you are broke.")
+        input()
+        quit()
     player_money += pick_game(player_name, player_money)
 
     return player_money, player_name, entered_name
@@ -62,7 +67,7 @@ def pick_game(player_name, player_money):
     game_choice_input = input()
 
     if game_choice_input == "A" or game_choice_input == "a":
-        returned_money = russian_roulette.rr_main(player_name, player_money)
+        returned_money += russian_roulette.rr_main(player_name, player_money)
     elif game_choice_input == "B" or game_choice_input == "b":
         returned_money += coin_flip.cc_main(player_name, player_money)
     else:
