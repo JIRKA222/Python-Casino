@@ -64,7 +64,7 @@ def get_dice_roll(number_of_throws):
 
 def cc_main(player_name, player_money):
     console_format.clear()
-    
+
     continue_game = True
 
     returned_money = 0
